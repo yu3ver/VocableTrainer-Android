@@ -130,11 +130,27 @@ public class FileActivity extends AppCompatActivity {
         defaultFileName = defaultName == null ? "file.xy" : defaultName;
 
         initListView();
+
+        handleIntent(getIntent());
     }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        handleIntent(intent);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.file, menu);
+
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+
         return true;
     }
 
@@ -153,6 +169,16 @@ public class FileActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void handleIntent(Intent intent) {
+
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            Log.d(TAG,"action search");
+            //use the query to search your data somehow
+        }
+    }
+
 
     /**
      * Setup listview

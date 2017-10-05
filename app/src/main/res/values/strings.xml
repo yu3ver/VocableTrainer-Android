@@ -66,6 +66,7 @@
     <string name="File_Menu_Sort_Size">size</string>
     <!-- General -->
     <string name="GEN_Sort">Sorting</string>
+    <string name="GEN_Search">Search</string>
     <!-- Dialogs -->
     <string name="Trainer_Diag_finished_Title">Finished</string>
     <string name="Trainer_Diag_finished_MSG">You\'ve finished this training session.</string>
