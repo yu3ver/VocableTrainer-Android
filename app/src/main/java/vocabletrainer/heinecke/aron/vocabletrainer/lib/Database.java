@@ -45,6 +45,7 @@ public class Database {
     private final static String KEY_POINTS = "points";
     private final static String KEY_MKEY = "key";
     private final static String KEY_MVALUE = "value";
+    private final static String[] VEntryKeys = {KEY_WORD_A,KEY_WORD_B,KEY_TIP,KEY_VOC,KEY_TABLE,KEY_LAST_USED};
     private static SQLiteDatabase dbIntern = null; // DB to internal file, 99% of the time used
     private SQLiteDatabase db = null; // pointer to DB used in this class
     private SQLiteOpenHelper helper = null;
@@ -762,6 +763,42 @@ public class Database {
             return null;
         }
 
+    }
+
+    /**
+     * Search for vocable by column A,B values
+     * @param valA value column A to search for
+     * @param valB value column B to search for
+     * @param searchGlobal true for DB wide search
+     * @param list list to search in if searchGlobal is false<br>
+     *             can be null on searchGlobal true
+     * @return search results
+     */
+    public List<VEntry> searchVocables(final String valA, final String valB, final boolean searchGlobal, final VList list){
+        String selection = "`"+KEY_WORD_A+"` LIKE ? AND `"+KEY_WORD_B+"` LIKE ? ";
+        String[] args = new String[searchGlobal ? 3 : 2];
+        args[0] = "%"+valA+"%";
+        args[1] = "%"+valB+"%";
+        if(searchGlobal){
+            selection += " AND `"+KEY_TABLE+"` = ?";
+            args[2] = String.valueOf(list.getId());
+        }
+        try (Cursor cursor = db.query(TBL_VOCABLE,VEntryKeys,args,null,null,)) {
+            ArrayList<VEntry> result = new ArrayList<>();
+            VList vList = null;
+            while(cursor.moveToNext()){
+                if(vList == null || vList.getId() != cursor.getInt(5)){
+                    vList = new VList(cursor.getInt(5));
+                }
+                VEntry vEntry = new VEntry(cursor.getString(1),cursor.getString(2),
+                        cursor.getString(3),cursor.getInt(4),vList,cursor.getLong(6));
+                result.add(vEntry);
+            }
+            return result;
+        } catch (Exception e){
+
+            return null;
+        }
     }
 
     class internalDB extends SQLiteOpenHelper {
