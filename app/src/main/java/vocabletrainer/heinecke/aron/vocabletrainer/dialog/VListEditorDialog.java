@@ -80,9 +80,9 @@ public class VListEditorDialog extends DialogFragment {
         final EditText iColB = new EditText(getActivity());
         iName.setText(list.getName());
         iName.setSingleLine();
-        iName.setHint(R.string.Editor_Default_List_Name);
-        iColA.setHint(R.string.Editor_Default_Column_A);
-        iColB.setHint(R.string.Editor_Default_Column_B);
+        iName.setHint(R.string.Editor_Hint_List_Name);
+        iColA.setHint(R.string.Editor_Hint_Column_A);
+        iColB.setHint(R.string.Editor_Hint_Column_B);
         iColA.setText(list.getNameA());
         iColA.setSingleLine();
         iColB.setSingleLine();

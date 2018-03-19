@@ -350,10 +350,15 @@ public class ExportFragment extends BaseFragment {
                     List<VEntry> vocables = db.getVocablesOfTable(tbl);
 
                     for (VEntry ent : vocables) {
-                        printer.print(ent.getAWord());
-                        printer.print(ent.getBWord());
-                        printer.print(ent.getTip());
-                        printer.println();
+                        //TODO: option for precisision export of multi vocables
+                        List<String> mA = ent.getAMeanings();
+                        List<String> mB = ent.getBMeanings();
+                        for(int j = 0; j < mA.size(); j++) {
+                            printer.print(mA.get(j));
+                            printer.print(mB.get(j));
+                            printer.print(ent.getTip());
+                            printer.println();
+                        }
                     }
                     i++;
                     publishProgress((es.lists.size() / MAX_PROGRESS) * i);

@@ -35,10 +35,11 @@
     <string name="Sort_Col_Tip">Column Tip</string>
     <string name="Editor_search_hint">Filename</string>
     <string name="Editor_Title">Editor</string>
-    <string name="Editor_Default_Column_A">Column A</string>
-    <string name="Editor_Default_Column_B">Column B</string>
-    <string name="Editor_Default_List_Name">List Name</string>
-    <string name="Editor_Default_Tip">Hint</string>
+    <string name="Editor_Hint_Column_A">Column A</string>
+    <string name="Editor_Hint_Column_B">Column B</string>
+    <string name="Editor_Hint_List_Name">List Name</string>
+    <string name="Editor_Hint_Tip">Hint</string>
+    <string name="Editor_Hint_Addition">Additional</string>
     <string name="Editor_Undo">Undo</string>
     <string name="Editor_ListSettings">List Settings</string>
     <string name="CSV_Format">CSV Format</string>
@@ -91,8 +92,8 @@
     <string name="Editor_Diag_table_btn_Canel">Cancel</string>
     <string name="Format_Diag_error_Title">Invalid Input</string>
     <string name="tDB_Update_Text" formatted="true" translatable="false">VA is going to make a major DB upgrade, allowing for N:N vocable lists.\nFor more Information see <a href="https://github.com/0xpr03/VocableTrainer-Android/issues/22">here.</a>\nPlease backup your lists via export just in case.</string>
-    <string name="tDB_Update_Close">Close</string>
-    <string name="tDB_Update_Close_Dismissed">Don\'t show again</string>
+    <string name="tDB_Update_Close" translatable="false">Close</string>
+    <string name="tDB_Update_Close_Dismissed" translatable="false">Don\'t show again</string>
 
     <string name="About_Title">About</string>
     <!-- Special escape because of replacement & re-parsing as HTML \n = <br>-->

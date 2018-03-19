@@ -25,6 +25,7 @@ public class Importer implements ImportHandler {
     private Database db;
     private ArrayList<VEntry> insertBuffer = new ArrayList<>(BUFFER_CAPACITY);
     private boolean ignoreEntries;
+    private static final String DEFAULT_ADDITION = ""; // TODO: allow addition
 
     public Importer(Context context, PreviewParser previewParser, IMPORT_LIST_MODE mode, VList overrideList) {
         if (previewParser.isRawData() && overrideList == null) {
@@ -43,7 +44,7 @@ public class Importer implements ImportHandler {
         // raw data or single list with create flag
         if (previewParser.isRawData() || (!previewParser.isMultiList() && mode == IMPORT_LIST_MODE.CREATE)) {
             currentList = overrideList;
-            db.upsertTable(currentList);
+            db.upsertVList(currentList);
         }
     }
 
@@ -55,14 +56,14 @@ public class Importer implements ImportHandler {
         if (previewParser.isRawData()) {
             Log.w(TAG, "New VList command on raw data list!");
         } else if (previewParser.isMultiList() || mode != IMPORT_LIST_MODE.CREATE) {
-            if (VList.isIDValid(db.getTableID(tbl))) {
+            if (VList.isIDValid(db.getSetTableID(tbl))) {
                 if (mode == IMPORT_LIST_MODE.REPLACE) {
                     db.emptyList(tbl);
                 } else if (mode == IMPORT_LIST_MODE.IGNORE) {
                     ignoreEntries = true;
                 }
             } else {
-                db.upsertTable(tbl);
+                db.upsertVList(tbl);
             }
 
             currentList = tbl;
@@ -72,7 +73,7 @@ public class Importer implements ImportHandler {
     @Override
     public void newEntry(String A, String B, String Tipp) {
         if (!ignoreEntries) {
-            insertBuffer.add(new VEntry(A, B, Tipp, currentList, -1L));
+            insertBuffer.add(new VEntry(A, B, Tipp, DEFAULT_ADDITION, currentList));
             if (insertBuffer.size() >= BUFFER_CAPACITY) {
                 flushBuffer();
             }

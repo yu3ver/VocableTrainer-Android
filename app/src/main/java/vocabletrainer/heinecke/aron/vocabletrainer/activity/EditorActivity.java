@@ -114,7 +114,7 @@ public class EditorActivity extends AppCompatActivity {
         // handle passed params
         boolean newTable = intent.getBooleanExtra(PARAM_NEW_TABLE, false);
         if (newTable) {
-            list = new VList(getString(R.string.Editor_Default_Column_A), getString(R.string.Editor_Default_Column_B), getString(R.string.Editor_Default_List_Name));
+            list = new VList(getString(R.string.Editor_Hint_Column_A), getString(R.string.Editor_Hint_Column_B), getString(R.string.Editor_Hint_List_Name));
             Log.d(TAG, "new list mode");
             showTableInfoDialog(true);
         } else {
@@ -209,7 +209,7 @@ public class EditorActivity extends AppCompatActivity {
             return;
         }
         Log.d(TAG, "list: " + list);
-        if (db.upsertTable(list)) {
+        if (db.upsertVList(list)) {
             Log.d(TAG, "list: " + list);
             if (db.upsertEntries(adapter.getAllEntries())) {
                 adapter.clearDeleted();
@@ -263,7 +263,7 @@ public class EditorActivity extends AppCompatActivity {
      * Add an entry
      */
     public void addEntry() {
-        VEntry entry = new VEntry("", "", "", list, -1);
+        VEntry entry = new VEntry(list);
         adapter.addEntryUnrendered(entry);
         showEntryEditDialog(entry, true);
     }
@@ -280,7 +280,7 @@ public class EditorActivity extends AppCompatActivity {
         AlertDialog.Builder delDiag = new AlertDialog.Builder(this);
 
         delDiag.setTitle(R.string.Editor_Diag_delete_Title);
-        delDiag.setMessage(String.format(getString(R.string.Editor_Diag_delete_MSG_part) + "\n %s %s %s", entry.getAWord(), entry.getBWord(), entry.getTip()));
+        delDiag.setMessage(String.format(getString(R.string.Editor_Diag_delete_MSG_part) + "\n %s %s %s", entry.getAString(), entry.getBString(), entry.getTip()));
 
         delDiag.setPositiveButton(R.string.Editor_Diag_delete_btn_OK, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {

@@ -1,5 +1,7 @@
 package vocabletrainer.heinecke.aron.vocabletrainer.lib.Comparator;
 
+import android.text.TextUtils;
+
 import vocabletrainer.heinecke.aron.vocabletrainer.lib.Storage.VEntry;
 
 /**
@@ -37,7 +39,7 @@ public class GenEntryComparator extends GenericComparator<VEntry, String> {
     public static final GenericComparator.ValueRetriever retA = new ValueRetriever<VEntry, String>() {
         @Override
         public String getV(VEntry obj) {
-            return obj.getAWord();
+            return obj.getAString();
         }
     };
 
@@ -47,7 +49,7 @@ public class GenEntryComparator extends GenericComparator<VEntry, String> {
     public static final GenericComparator.ValueRetriever retB = new ValueRetriever<VEntry, String>() {
         @Override
         public String getV(VEntry obj) {
-            return obj.getBWord();
+            return obj.getBString();
         }
     };
 

@@ -139,10 +139,11 @@ public class Trainer {
      * @return Solution
      */
     private String getSolutionUnchecked() {
-        if (order == AB_MODE.A)
-            return cVocable.getAWord();
-        else
-            return cVocable.getBWord();
+//        if (order == AB_MODE.A)
+//            return cVocable.getAWord();
+//        else
+//            return cVocable.getBWord();
+        return "TEMP";
     }
 
     /**
@@ -305,7 +306,8 @@ public class Trainer {
         if (cVocable == null)
             return "";
 
-        return order == AB_MODE.A ? cVocable.getBWord() : cVocable.getAWord();
+        //return order == AB_MODE.A ? cVocable.getBWord() : cVocable.getAWord();
+        return "TEMP";
     }
 
     /**
